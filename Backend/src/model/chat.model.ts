@@ -11,6 +11,33 @@ export interface IChat extends Document{
 }
 
 const chatSchema = new mongoose.Schema({
-    chatId:String,
+    type:{
+        type:String,
+        enum:["personal" , "group"],
+        required:true,
+    },
+    name:{
+        type:String,
+        trim:true,
+    },
+    participant:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required:true,
+    },
+    admins:[{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+    }],
+
+    lastMessage:{
+        types:Schema.Types.ObjectId,
+        ref:"Message",
+    },
+    aiActiveUsers:[{
+        types:Schema.Types.ObjectId,
+        ref:"User",
+    }],
+
 
 },{timestamps:true})
