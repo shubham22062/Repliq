@@ -6,7 +6,10 @@ export interface IChat extends Document{
     name :String; //group name
     participants:Types.ObjectId[];
     admins:Types.ObjectId[];
-    lastMessage:
+    lastMessage:Types.ObjectId;
+    aiActiveUser?:Types.ObjectId[];
+    createdAt:Date;
+    updatedAt:Date;
 
 }
 
