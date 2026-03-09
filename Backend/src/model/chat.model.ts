@@ -53,3 +53,10 @@ const chatSchema = new Schema<IChat>(
   },
   { timestamps: true }
 );
+
+chatSchema.index({participants:1});
+chatSchema.index({lastMessage:1});
+
+const Chat = mongoose.model<IChat>("Chat",chatSchema);
+
+export default Chat;
