@@ -1,15 +1,21 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
 
-export const connectDB = async (): Promise<void>=>{
+dotenv.config();
+export const connectDB = async ():Promise<void>=>{
     try {
-        const mongoURI = process.env.MONGO_URI as string;
+        const mongoURI = process.env.MONGO_URI;
 
-       mongoose.set("autoIndex", true);
-       await mongoose.connect(mongoURI);
+        if(!mongoURI){
+            throw new Error("MONGO_URI is not defined");
+        
+        }
+        mongoose.set("autoIndex", true);
+        await mongoose.connect(mongoURI);
 
-        console.log("DataBase Connected");
+        console.log("Database connected");
     } catch (error) {
-        console.error("connection failed",error);
+        console.log("Database connection failed:", error);
         process.exit(1);
     }
-}
+};
