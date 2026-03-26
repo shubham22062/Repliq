@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../model/user.model.js";
+import { generateToken } from "../utlis/jwt.js";
 
 
 export const signup = async(name:string, email:string, password:string)=>{
@@ -18,8 +19,10 @@ export const signup = async(name:string, email:string, password:string)=>{
 
     })
 
+    const token = generateToken(user._id.toString());
+
     
- return user
+ return {user , token}
 
 }
 
@@ -35,7 +38,12 @@ export const login = async (email:string, password:string) =>{
 
     if(!isMatch){
         throw new Error("invalid credentials")
+
+
     }
- return user
+
+    const token = generateToken(user._id.toString());
+
+ return {user , token}
 
 }
